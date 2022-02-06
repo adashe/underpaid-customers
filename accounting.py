@@ -63,6 +63,9 @@ customer6_paid = 2.00
 # Creates a function that compares customer payments to expepcted payments
 
 def correct_payments(order_file):
+    """
+    Opens a delivery report, calculates if overpaid or underpaid, and prints a summary statement
+    """
 
     # Opens text file of orders
 
