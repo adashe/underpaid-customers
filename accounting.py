@@ -62,25 +62,44 @@ customer6_paid = 2.00
 
 # Creates a function that compares customer payments to expepcted payments
 
-def correct_payments(customer_name, customer_melons, customer_paid):
+def correct_payments(order_file):
+
+    # Opens text file of orders
+
+    customer_data = open(order_file)
+    
+    for line in customer_data:
+
+        # Cleans up each line
+
+        line = line.rstrip()
+
+        words = line.split("|")
+
+        # Assigns variable names to items in each line
+
+        customer_name = words[1]
+        customer_melons = words[2]
+        customer_paid = words[3]
 
     # Calculates expected cost
 
-    customer_expected = customer_melons * melon_cost
+    customer_expected = float(customer_melons) * float(melon_cost)
 
     # Compares expected cost to actual amount paid
 
-    if customer_expected != customer_paid:
+    if float(customer_expected) > float(customer_paid):
 
-        # Prints out string indicating if a customer over or underpaid
-        
-        print(f"{customer_name} paid ${customer_paid:.2f},",
-          f"expected ${customer_expected:.2f}"
-          )
+        # Prints out string indicating if a customer overpaid or underpaid
 
-correct_payments(customer1_name, customer1_melons, customer1_paid)
-correct_payments(customer2_name, customer2_melons, customer2_paid)
-correct_payments(customer3_name, customer3_melons, customer3_paid)
-correct_payments(customer4_name, customer4_melons, customer4_paid)
-correct_payments(customer5_name, customer5_melons, customer5_paid)
-correct_payments(customer6_name, customer6_melons, customer6_paid)
+        print(f"{customer_name} has overpaid for their melons.")
+
+    elif float(customer_expected) < float(customer_paid):
+
+        print(f"{customer_name} has underpaid for their melons.")
+
+    else:
+
+        pass
+
+correct_payments("customer-orders.txt")
